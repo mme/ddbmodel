@@ -18,12 +18,24 @@ defmodule YourModel do
   # optionally set a custom table name, e.g.
   use ExDynamoDBModel, table_name: "your_dynamo_table"
   
-  # define some columns
-  defcolumn :id # type any, no default value
-  
 end
 ```
 
 The default DynamoDB table name is the name ot the model. If you have the environment variable DYNAMO_DB_PREFIX set, all your tablenames will be prefixed.
+
+Defining columns
+-------------------------
+
+```elixir
+defmodule Account do
+  
+  use ExDynamoDBModel
+  
+  # define some columns
+  defcolumn :first_name
+  
+end
+```
+
 
 
