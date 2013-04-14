@@ -53,6 +53,35 @@ defmodule Account do
 end
 ```
 
+Working with instances
+-------------------------
+
+Create a new instance with the new function
+```elixir
+  account = Account.new
+```
+
+Pass in parameters by keyword
+```elixir
+  account = Account.new first_name: "Dale", last_name: "Cooper"
+```
+
+Update a single parameter (don't forget to assign to a variable, the update does not happen in place..)
+```elixir
+  account = account.membership(:paid)
+```
+
+Mass Assignment
+```elixir
+  account = account.set membership: :paid, status: :A
+```
+
+Whitelisted mass assignment
+```elixir
+  account = account.set [membership: :paid, status: :A, first_name: "John"], [:membership, :status]
+  # change only membership and status
+```
+
 License
 -------------------------
 __BSD__
