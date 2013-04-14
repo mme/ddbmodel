@@ -12,14 +12,13 @@ defmodule YourModel do
   # specify the DynamoDB key column (default is uuid). 
   use ExDynamoDBModel, key: :id
   
-  # if you have a table with hash key and range, pass a tuple, e.g.
-  # use ExDynamoDBModel, key: {:id, :timestamp}
+  # if you have a table with hash key and range, pass a tuple
+  use ExDynamoDBModel, key: {:id, :timestamp}
   
   # optionally set a custom table name, e.g.
-  # use ExDynamoDBModel, table_name: "your_dynamo_table"
+  use ExDynamoDBModel, table_name: "your_dynamo_table"
   
   # define some columns
-  
   defcolumn :id # type any, no default value
   
 end
