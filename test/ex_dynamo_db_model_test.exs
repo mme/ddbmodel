@@ -84,4 +84,19 @@ defmodule ExDynamoDBModelTest do
     assert x.validate != :ok
   end
   
+  test "before save uuid type" do
+    x = TestModelHashKey.new
+    x = x.before_save
+    assert x.uuid != nil
+  end
+  
+  test "automatic timestamp" do
+    x1 = TestModelHashKey.new
+    x1 = x1.before_save
+    assert x1.created_at != nil and x1.updated_at != nil
+    :timer.sleep(1100)
+    x2 = x1.before_save
+    assert x1.updated_at != x2.updated_at and x1.created_at == x2.created_at
+  end
+  
 end

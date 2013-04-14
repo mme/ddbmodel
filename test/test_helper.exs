@@ -65,3 +65,12 @@ defmodule TestCustomValidate do
     {:error, [{:error, {:something, "Something's not right" }}]}
   end
 end
+
+
+defmodule TestModelHashKey do
+  use ExDynamoDBModel, key: :uuid
+  with_timestamps
+  
+  defcolumn :uuid, type: :uuid
+    
+end

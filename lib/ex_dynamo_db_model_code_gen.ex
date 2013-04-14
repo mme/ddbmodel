@@ -33,6 +33,7 @@ defmodule ExDynamoDBModel.CodeGen do
         {__MODULE__, HashDict.merge dict, (HashDict.new attributes)}
       end
       
+      @doc "get the record id"
       def id(record = {__MODULE__, dict}) do
         case key do
           {hash, range} -> {dict[hash], dict[range]}
