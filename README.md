@@ -3,12 +3,13 @@ ExDynamoDBModel
 
 *ActiveRecord-like Model for DynamoDB*
 
+Environment Variables
+- _DYNAMO_DB_PREFIX_ - All DynamoDB tablenames will be prefixed with the value of this variable
+- _AWS_ACCESS_KEY_ID_ - AWS access key
+- _AWS_SECRET_ACCESS_KEY_ - AWS secret key
+
 Usage
 -------------------------
-Environment Variables
-- *DYNAMO_DB_PREFIX* All DynamoDB tablenames will be prefixed with the value of this variable
-- *AWS_ACCESS_KEY_ID* AWS access key
-- *AWS_SECRET_ACCESS_KEY* AWS secret key
 
 ```elixir
 defmodule YourModel do
