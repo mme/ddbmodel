@@ -40,6 +40,11 @@ defmodule Account do
   # validate not null
   defcolumn :first_name, null: false
   
+  # validate by function
+  defcolumn :last_name, validate: &1 != "Doe"
+  # or
+  defcolumn :last_name, validate: fn(v) v != "Doe" end
+  
 end
 ```
 
