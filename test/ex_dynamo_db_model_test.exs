@@ -29,7 +29,7 @@ defmodule ExDynamoDBModelTest do
     assert TestRangeKey.key == {:a_hash_key, :a_range_key}
   end
   
-  test "od " do
+  test "record id" do
     x = TestRecordID.new hash: "abc", range: "def"
     assert x.id == {"abc", "def"}
   end
@@ -77,6 +77,11 @@ defmodule ExDynamoDBModelTest do
     assert x.validate != :ok
     x = x.set membership: :paid
     assert x.validate == :ok
+  end
+  
+  test "custom validation" do
+    x = TestCustomValidate.new
+    assert x.validate != :ok
   end
   
 end

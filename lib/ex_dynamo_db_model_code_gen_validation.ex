@@ -16,6 +16,8 @@ defmodule ExDynamoDBModel.CodeGen.Validation do
         end
       end
       
+      defoverridable [validate: 1]
+      
       def validate(:null, false, k, nil), do: {:error, {k, atom_to_binary(k) <> " must not be null"}}
       def validate(:null, _, _, _), do: :ok
       

@@ -56,3 +56,12 @@ defmodule TestValidate do
   defcolumn :membership, default: :free, in_list: [:free, :paid]
   
 end
+
+defmodule TestCustomValidate do
+  use ExDynamoDBModel
+  
+  def validate(record) do
+    _ = super(record)
+    {:error, [{:error, {:something, "Something's not right" }}]}
+  end
+end
