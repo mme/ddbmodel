@@ -4,17 +4,17 @@ ExDynamoDBModel
 *ActiveRecord-like Model for DynamoDB*
 
 
-To make a dynamodb model, do this:
-```
+To make a DynamoDB model, do this:
+```elixir
 defmodule YourModel do
   use ExDynamoDBModel
 end
 ```
 
-The default dynamodb table name is the name ot the model. If you have the environment variable DYNAMO_DB_PREFIX set, all your tablenames will be prefixed.
+The default DynamoDB table name is the name ot the model. If you have the environment variable DYNAMO_DB_PREFIX set, all your tablenames will be prefixed.
 
-You can set a custom table name like this:
-```
+Set a custom table name like this:
+```elixir
 defmodule YourModel do
   use ExDynamoDBModel, table_name: "your_dynamo_table"
 end
