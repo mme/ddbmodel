@@ -32,5 +32,11 @@ defmodule ExDynamoDBModelTest do
     assert x.uuid == "D0F126F4-90C1-4855-B73F-99E8E9A8D151"
   end
   
+  test "column default" do
+    x = TestDefColumnDefault.new
+    assert x.first_name == "Markus"
+    x = x.first_name "Niko"
+    assert x.first_name == "Niko"
+  end
   
 end

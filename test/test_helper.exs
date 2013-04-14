@@ -25,3 +25,9 @@ defmodule TestDefColumn do
   
   defcolumn :uuid
 end
+
+defmodule TestDefColumnDefault do
+  use ExDynamoDBModel
+  
+  defcolumn :first_name, default: "Markus"
+end
