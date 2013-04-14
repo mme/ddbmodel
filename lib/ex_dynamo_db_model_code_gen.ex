@@ -12,7 +12,7 @@ defmodule ExDynamoDBModel.CodeGen do
       def table_name do
         case :os.getenv('DYNAMO_DB_PREFIX') do
           false  -> inspect(__MODULE__)
-          prefix -> list_to_binary(prefix) <> "." <> inspect(__MODULE__)
+          prefix -> list_to_binary(prefix)  <> inspect(__MODULE__)
         end
       end
     end
@@ -27,7 +27,6 @@ defmodule ExDynamoDBModel.CodeGen do
   def generate_key(nil) do
     quote do
       def key, do: :uuid
-      end
     end
   end
   

@@ -17,6 +17,13 @@ defmodule ExDynamoDBModelTest do
     assert TestCustomTableName.table_name == "Custom"
   end
   
+  test "default key" do
+    assert TestCustomKey.key == :a_key
+  end
+  
+  test "custom key" do
+    assert TestRangeKey.key == {:a_hash_key, :a_range_key}
+  end
   
   
 end
