@@ -50,5 +50,10 @@ defmodule Account do
 end
 ```
 
+License
+-------------------------
+__BSD__
+http://opensource.org/licenses/BSD-2-Clause
+
 
 
