@@ -37,17 +37,15 @@ defmodule Account do
   # set default value
   defcolumn :status, default: :A
   
-  # validate not null
-  defcolumn :first_name, null: false
-  
   #validate in_list
   defcolumn :membership, default: :free, in_list: [:free, :paid]
+  
+  # validate not null
+  defcolumn :first_name, null: false
   
   # validate by function
   defcolumn :last_name, validate: &1 != "Doe"
   # or defcolumn :last_name, validate: fn(v) v != "Doe" end
-  
-  
   
 end
 ```
