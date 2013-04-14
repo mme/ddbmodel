@@ -82,6 +82,14 @@ Whitelisted mass assignment
   account = account.set [membership: :paid, status: :A, first_name: "John"], [:membership, :status]
 ```
 
+Updating DynamoDB
+-------------------------
+
+Use put to create a new or update an existing record
+```elixir
+  {:ok, account} = account.put!
+```
+
 License
 -------------------------
 Copyright (c) 2013, Markus Ecker
