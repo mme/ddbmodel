@@ -1,5 +1,0 @@
-defmodule ExDynamoDB do
-  
-
-  
-end
