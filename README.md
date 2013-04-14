@@ -34,10 +34,13 @@ defmodule Account do
   
   use ExDynamoDBModel
   
+  # uuid type automatically creates a uuid before saving if needed
+  defcolumn :uuid, type: :uuid
+  
   # set default value
   defcolumn :status, default: :A
   
-  #validate in_list
+  # validate in_list
   defcolumn :membership, default: :free, in_list: [:free, :paid]
   
   # validate not null
