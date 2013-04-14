@@ -39,4 +39,18 @@ defmodule ExDynamoDBModelTest do
     assert x.first_name == "Niko"
   end
   
+  test "validate by function" do
+    x = TestValidate.new first_name: "Joe", last_name: "Schmoe"
+    assert x.validate != :ok
+    x = x.set first_name: "John", last_name: "Doe"
+    assert x.validate == :ok
+  end
+  
+  test "validate not null" do
+    x = TestValidate.new
+    assert x.validate == :ok
+    x = x.set status: nil
+    assert x.validate != :ok
+  end
+  
 end

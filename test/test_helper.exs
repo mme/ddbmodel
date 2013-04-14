@@ -31,3 +31,13 @@ defmodule TestDefColumnDefault do
   
   defcolumn :first_name, default: "Markus"
 end
+
+
+defmodule TestValidate do
+  use ExDynamoDBModel
+  
+  defcolumn :first_name, default: "John", validate: fn(first_name) -> first_name == "John" end
+  defcolumn :last_name, default: "Doe", validate: &1 == "Doe"
+  defcolumn :status, default: :A, null: :false
+  
+end

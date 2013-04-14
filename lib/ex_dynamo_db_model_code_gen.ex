@@ -21,6 +21,17 @@ defmodule ExDynamoDBModel.CodeGen do
       def new (attributes // []) do
         {__MODULE__, HashDict.merge (HashDict.new model_column_defaults), (HashDict.new attributes)}
       end
+     
+      @doc "update module from dict"
+      def set(attributes,record = {__MODULE__, _dict}), do: set(attributes, nil, record)
+      
+      def set(attributes, allowed_keys, {__MODULE__, dict}) do
+        attributes = case allowed_keys do
+          nil -> attributes
+          _   -> Enum.filter attributes, fn({k,_v}) -> Enum.any? allowed_keys, &1 == k end
+        end
+        {__MODULE__, HashDict.merge dict, (HashDict.new attributes)}
+      end
       
     end
   end
