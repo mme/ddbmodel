@@ -6,8 +6,13 @@ defmodule ExDynamoDBModel do
   
   defp setup(opts) do
     quote do
-      unquote(ExDynamoDBModel.CodeGen.generate_functions(opts))
+      Module.register_attribute __MODULE__, :model_column, accumulate: true, persist: true
+      unquote(ExDynamoDBModel.CodeGen.generate(:model, opts))
+      import ExDynamoDBModel
     end
   end
+  
+  @doc "define a column"
+  defmacro defcolumn(name, opts // []), do: ExDynamoDBModel.CodeGen.Columns.generate(:column, name, opts)
   
 end

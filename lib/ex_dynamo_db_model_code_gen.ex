@@ -1,9 +1,27 @@
 defmodule ExDynamoDBModel.CodeGen do
   
-  def generate_functions(opts) do
+  def generate(:model, opts) do
     quote do
+      
       unquote(generate_table_name(opts[:table_name]))
       unquote(generate_key(opts[:key]))
+      
+      # get the model columns from module attributes
+      defp model_columns do
+        attributes = Enum.filter module_info()[:attributes], fn({k,v}) -> k == :model_column end
+        Enum.map attributes, fn ({:model_column, [{name, attr}]}) -> {name, attr} end
+      end
+      
+      # get default values for the model columns
+      defp model_column_defaults do
+        Enum.map model_columns, fn ({key, attr}) -> {key, attr[:default]} end
+      end
+      
+      @doc "make record and init with default values"
+      def new (attributes // []) do
+        {__MODULE__, HashDict.merge (HashDict.new model_column_defaults), (HashDict.new attributes)}
+      end
+      
     end
   end
   
@@ -34,6 +52,7 @@ defmodule ExDynamoDBModel.CodeGen do
     quote do
       def key, do: unquote(key)
     end
-  end 
+  end
+  
   
 end
