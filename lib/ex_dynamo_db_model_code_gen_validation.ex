@@ -38,6 +38,7 @@ defmodule ExDynamoDBModel.CodeGen.Validation do
       
       def validate(:validate, _, _, _), do: :ok
       
+      def validates?(record={__MODULE__, dict}), do: validate(record) == :ok
     end
   end
   
