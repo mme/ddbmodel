@@ -14,7 +14,7 @@ Usage
 ```elixir
 defmodule YourModel do
   
-  # specify the DynamoDB key column (default is uuid). 
+  # specify the DynamoDB key column (default is :hash). 
   use ExDynamoDBModel, key: :id
   
   # if you have a table with hash key and range, pass a tuple

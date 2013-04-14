@@ -33,6 +33,13 @@ defmodule ExDynamoDBModel.CodeGen do
         {__MODULE__, HashDict.merge dict, (HashDict.new attributes)}
       end
       
+      def id(record = {__MODULE__, dict}) do
+        case key do
+          {hash, range} -> {dict[hash], dict[range]}
+          k             -> dict[k]
+        end
+      end
+      
     end
   end
   
@@ -55,7 +62,7 @@ defmodule ExDynamoDBModel.CodeGen do
   
   def generate_key(nil) do
     quote do
-      def key, do: :uuid
+      def key, do: :hash
     end
   end
   
@@ -64,6 +71,5 @@ defmodule ExDynamoDBModel.CodeGen do
       def key, do: unquote(key)
     end
   end
-  
   
 end

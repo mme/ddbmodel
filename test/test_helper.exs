@@ -16,6 +16,13 @@ defmodule TestCustomKey do
   use ExDynamoDBModel, key: :a_key
 end
 
+defmodule TestRecordID do
+  use ExDynamoDBModel, key: {:hash, :range}
+  
+  defcolumn :hash
+  defcolumn :range
+end
+
 defmodule TestRangeKey do
   use ExDynamoDBModel, key: {:a_hash_key, :a_range_key}
 end

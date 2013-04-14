@@ -18,13 +18,22 @@ defmodule ExDynamoDBModelTest do
   end
   
   test "default key" do
-    assert TestCustomKey.key == :a_key
+    assert TestDefaultKey.key == :hash
   end
   
   test "custom key" do
+    assert TestCustomKey.key == :a_key
+  end
+  
+  test "range key" do
     assert TestRangeKey.key == {:a_hash_key, :a_range_key}
   end
   
+  test "od " do
+    x = TestRecordID.new hash: "abc", range: "def"
+    assert x.id == {"abc", "def"}
+  end
+    
   test "def column" do
     x = TestDefColumn.new uuid: "7342C9D3-ED28-4E60-A9BD-CDE60EB69BEC"
     assert x.uuid == "7342C9D3-ED28-4E60-A9BD-CDE60EB69BEC"
