@@ -26,7 +26,7 @@ defmodule YourModel do
 end
 ```
 
-Defining columns
+Defining Models
 -------------------------
 
 ```elixir
@@ -53,7 +53,7 @@ defmodule Account do
 end
 ```
 
-Working with instances
+Using Models
 -------------------------
 
 Create a new instance with the new function
@@ -78,8 +78,8 @@ Mass Assignment
 
 Whitelisted mass assignment
 ```elixir
-  account = account.set [membership: :paid, status: :A, first_name: "John"], [:membership, :status]
   # change only membership and status
+  account = account.set [membership: :paid, status: :A, first_name: "John"], [:membership, :status]
 ```
 
 License
