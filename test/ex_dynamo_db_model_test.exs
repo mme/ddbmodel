@@ -99,4 +99,10 @@ defmodule ExDynamoDBModelTest do
     assert x1.updated_at != x2.updated_at and x1.created_at == x2.created_at
   end
   
+  test "put!" do
+    x = TestModelHashKey.new
+    {status, error} = x.put!
+    assert status == :ok
+  end
+  
 end
