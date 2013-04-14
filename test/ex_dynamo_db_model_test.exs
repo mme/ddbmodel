@@ -4,7 +4,7 @@ defmodule ExDynamoDBModelTest do
   use ExUnit.Case
   
   setup do
-    :os.putenv("DYNAMO_DB_PREFIX","test.ex_model_dynamo_db.")
+    :os.putenv("AWS_DYNAMO_DB_PREFIX","test.ex_model_dynamo_db.")
     :erlcloud.start()
     :ok
   end

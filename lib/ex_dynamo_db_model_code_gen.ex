@@ -47,7 +47,7 @@ defmodule ExDynamoDBModel.CodeGen do
   def generate_table_name(nil) do
     quote do
       def table_name do
-        case :os.getenv('DYNAMO_DB_PREFIX') do
+        case :os.getenv('AWS_DYNAMO_DB_PREFIX') do
           false  -> inspect(__MODULE__)
           prefix -> list_to_binary(prefix)  <> inspect(__MODULE__)
         end
