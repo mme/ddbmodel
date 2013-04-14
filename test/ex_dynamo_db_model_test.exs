@@ -53,4 +53,13 @@ defmodule ExDynamoDBModelTest do
     assert x.validate != :ok
   end
   
+  test "validate in_list" do
+    x = TestValidate.new
+    assert x.validate == :ok
+    x = x.set membership: :none
+    assert x.validate != :ok
+    x = x.set membership: :paid
+    assert x.validate == :ok
+  end
+  
 end

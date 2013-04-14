@@ -5,7 +5,7 @@ defmodule ExDynamoDBModel.CodeGen.Validation do
       
       def validate(record={__MODULE__, dict}) do
         res = Enum.map model_columns, fn({k,opts}) ->
-          Enum.map [:null, :validate, :includes], fn(opt) ->
+          Enum.map [:null, :validate, :in_list], fn(opt) ->
             validate(opt, opts[opt], k, dict[k])
           end
         end
@@ -19,14 +19,14 @@ defmodule ExDynamoDBModel.CodeGen.Validation do
       def validate(:null, false, k, nil), do: {:error, {k, atom_to_binary(k) <> " must not be null"}}
       def validate(:null, _, _, _), do: :ok
       
-      def validate(:includes, l, k, v) when is_list(l) do
+      def validate(:in_list, l, k, v) when is_list(l) do
         if Enum.any? l, &1 == v do
           :ok
         else
           {:error, {k, atom_to_binary(k) <> " must be in list " <> (inspect l)}}
         end
       end
-      def validate(:includes, _, _, _), do: :ok
+      def validate(:in_list, _, _, _), do: :ok
       
       def validate(:validate, f, k, v) when is_function(f) do
         case f.(v) do
