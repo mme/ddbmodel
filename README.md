@@ -4,7 +4,7 @@ ExDynamoDBModel
 *ActiveRecord-like Model for DynamoDB*
 
 Environment Variables
-- __DYNAMO_DB_PREFIX__ - All DynamoDB tablenames will be prefixed with the value of this variable
+- __DYNAMO_DB_PREFIX__ - All DynamoDB tablenames will be prefixed with the value of this variable (optional)
 - __AWS_ACCESS_KEY_ID__ - AWS access key
 - __AWS_SECRET_ACCESS_KEY__ - AWS secret key
 
