@@ -32,6 +32,13 @@ defmodule TestDefColumnDefault do
   defcolumn :first_name, default: "Markus"
 end
 
+defmodule TestMassAssignment do
+  use ExDynamoDBModel
+  
+  defcolumn :first_name
+  defcolumn :last_name
+  defcolumn :password
+end
 
 defmodule TestValidate do
   use ExDynamoDBModel

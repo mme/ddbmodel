@@ -39,6 +39,14 @@ defmodule ExDynamoDBModelTest do
     assert x.first_name == "Niko"
   end
   
+  test "mass assignment" do
+    x = TestMassAssignment.new
+    x = x.set first_name: "Dale", last_name: "Cooper", password: "black_lodge123"
+    assert x.first_name == "Dale" and x.last_name == "Cooper" and x.password == "black_lodge123"
+    x = x.set [first_name: "_", last_name: "_", password: "pwned"], [:first_name, :last_name]
+    assert x.first_name == "_" and x.last_name == "_" and x.password == "black_lodge123"
+  end
+  
   test "validate by function" do
     x = TestValidate.new first_name: "Joe", last_name: "Schmoe"
     assert x.validate != :ok
