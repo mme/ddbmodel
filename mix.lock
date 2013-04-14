@@ -1,0 +1,4 @@
+[ "erlcloud": {:git,"https://github.com/gleber/erlcloud.git","3b5c00a2434dde8dd2f474f00f3100631d21d9de",[]},
+  "jsx": {:git,"https://github.com/talentdeficit/jsx.git","f0f43c4abab4d4e889bff79e5d5aab675f9e8d4d",[]},
+  "meck": {:git,"https://github.com/eproxus/meck.git","161e240166a0d20e9ffa2be5d0bfa6a981f12aef",[]},
+  "uuid": {:git,"https://github.com/avtobiff/erlang-uuid.git","f47cec9f6b737ea23e32bbe683547818ad02646c",[]} ]
