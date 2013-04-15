@@ -156,4 +156,22 @@ defmodule ExDynamoDBModelTest do
     
   end
   
+  test "find" do
+    {:ok, x1} = TestModelHashKey.new.insert!
+    
+    {result, x2} = TestModelHashKey.find(x1.uuid)
+    
+    assert result == :ok and x1 == x2
+  end
+  
+  test "batch find" do
+
+    {:ok, x2} = TestModelHashKey.new.insert!
+    {:ok, x1} = TestModelHashKey.new.insert!
+    
+    {result, [xf1, xf2]} = TestModelHashKey.find [x1.uuid, x2.uuid]
+    
+    assert result == :ok and x1 == xf1 and x2 == xf2
+  end
+  
 end

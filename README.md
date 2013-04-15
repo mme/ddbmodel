@@ -78,7 +78,7 @@ Using Models
   
 ```
 
-Updating DynamoDB
+Updates
 -------------------------
 
 
@@ -104,6 +104,23 @@ Updating DynamoDB
   
   # batch delete records
   {:ok, ids} = Account.delete [acc1, acc2, acc3]
+```
+
+
+Queries
+-------------------------
+
+
+```elixir
+
+  # find by id
+  {:ok, account} = account.find("1234")
+  
+  # find returns :not_found when the account does not exist
+  :not_found = account.find("non-existant")
+  
+  # pass a list for batch find
+  {:ok, [acc1, acc2]} = account.find ["1234", "1235"]
 ```
 
 

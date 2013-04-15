@@ -11,8 +11,9 @@ defmodule ExDynamoDBModel.CodeGen.DB do
       end
       
       def from_dynamo(dict) do
+        
         res = Enum.map model_columns, fn({k,opts}) ->
-          {binary_to_atom(k), from_dynamo(opts[:type], dict[k])}
+          {k, from_dynamo(opts[:type], dict[atom_to_binary(k)])}
         end
         new(res)
       end
@@ -176,6 +177,35 @@ defmodule ExDynamoDBModel.CodeGen.DB do
           {:ok, result}   ->  after_delete(record_id)
                               {:ok, record_id}
           error           ->  error
+        end
+      end
+      
+      
+      # --------------------------------------------
+      # Find by ID
+      # --------------------------------------------
+      
+      # TODO: implement batch find across models
+  
+      # find a list of object by their ids
+      def find(ids) when is_list(ids) do
+        case :erlcloud_ddb.batch_get_item({table_name, ids}) do
+          {:ok, items}     -> result = Enum.map(items, fn(item) -> from_dynamo(item) end)
+                              result = Enum.sort result, fn(r1, r2) ->
+                                (Enum.find_index ids, r1.id == &1) 
+                                  < 
+                                (Enum.find_index ids, r2.id == &1) 
+                               end
+                              {:ok, result }
+          error            -> error
+        end
+      end
+      
+      # find one object by id
+      def find(record_id) do
+        case :erlcloud_ddb.get_item(table_name, record_id) do
+          {:ok, []}     -> :not_found
+          {:ok, item}   -> {:ok, from_dynamo(item)}
         end
       end
       
