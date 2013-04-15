@@ -61,7 +61,7 @@ defmodule ExDynamoDBModel.CodeGen.DB do
         validations = List.flatten(Enum.filter validations, fn(v) -> v != :ok end)
 
         case validations do
-          [] -> items = Enum.map records, fn(record) -> {table_name, [{:put, to_dynamo(record)}]} end
+          [] -> items = Enum.map records, fn(record) -> {table_name, [{:put, to_dynamo(record)} ]} end
                 case :erlcloud_ddb.batch_write_item(items) do
                   {:ok, result}   -> {:ok, Enum.map records, fn (record) -> after_put(record) end}
                   error           -> error
@@ -100,6 +100,39 @@ defmodule ExDynamoDBModel.CodeGen.DB do
         case key do
           {hash, range} -> [expected: [{atom_to_binary(hash), false}, {atom_to_binary(range), false}]]
           hash          -> [expected: {atom_to_binary(hash), false}]
+        end
+      end
+      
+      # --------------------------------------------
+      # Update
+      # --------------------------------------------
+      
+      def before_update(record={__MODULE__,_dict}), do: record
+      def after_update(record={__MODULE__,_dict}), do: record
+      
+      defoverridable [before_update: 1, after_update: 1]
+            
+      @doc "update record, error when it doesn't exist"
+      def update!(record={__MODULE__,_dict}) do
+        
+        record = before_update(before_save record)
+
+        case validate(record) do
+          :ok -> 
+          case :erlcloud_ddb.put_item(table_name,to_dynamo(record), expect_exists(record)) do
+            {:ok, result}   -> {:ok, after_update(record)}
+            error           -> error
+          end
+          error -> error
+        end
+        
+      end
+      
+      # expect that the record already exists
+      defp expect_exists(record={__MODULE__, _dict}) do
+        case {key,id(record)} do
+          {{hash, range}, {hash_key, range_key}}  -> [expected: [{atom_to_binary(hash), hash_key }, {atom_to_binary(range), range_key }]]
+          {hash, hash_key} when is_atom(hash)     -> [expected: {atom_to_binary(hash), hash_key }]
         end
       end
       
