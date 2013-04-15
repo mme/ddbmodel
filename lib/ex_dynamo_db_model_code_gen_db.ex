@@ -160,8 +160,9 @@ defmodule ExDynamoDBModel.CodeGen.DB do
         
         Enum.each record_ids, fn(record_id) -> before_delete(record_id) end
         
-        items = Enum.map record_ids, fn(record_id) -> {table_name, [{:delete, record_id} ]} end
-        case :erlcloud_ddb.batch_write_item(items) do
+        items = Enum.map record_ids, fn(record_id) -> {:delete, record_id} end
+        
+        case :erlcloud_ddb.batch_write_item({TestModelHashKey.table_name, items}) do
           {:ok, result}   ->  Enum.each record_ids, fn(record_id) -> after_delete(record_id) end
                               {:ok, record_ids}
           error           ->  error

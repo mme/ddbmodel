@@ -141,4 +141,19 @@ defmodule ExDynamoDBModelTest do
     assert status != :ok
   end
   
+  test "batch delete" do
+    
+    {:ok, x1} = TestModelHashKey.new.insert!
+    {:ok, x2} = TestModelHashKey.new.insert!
+    
+    TestModelHashKey.delete! [x1, x2]
+
+    {status, _} = x1.delete!
+    assert status != :ok
+    
+    {status, _} = x2.delete!
+    assert status != :ok
+    
+  end
+  
 end
