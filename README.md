@@ -85,9 +85,11 @@ Whitelisted mass assignment
 Updating DynamoDB
 -------------------------
 
-Use put to create a new or update an existing record
+put! creates a new or updates an existing record
 ```elixir
   {:ok, account} = account.put!
+  # batch put!
+  {:ok, accounts} = Account.put! [Account.new, Account.new]
 ```
 
 License

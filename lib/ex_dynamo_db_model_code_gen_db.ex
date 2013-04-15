@@ -29,7 +29,7 @@ defmodule ExDynamoDBModel.CodeGen.DB do
       def from_dynamo(_,v), do: v
       
       # --------------------------------------------
-      # Save/Delete Record
+      # Put
       # --------------------------------------------
     
       def before_put(record={__MODULE__,_dict}), do: record
@@ -49,6 +49,24 @@ defmodule ExDynamoDBModel.CodeGen.DB do
               error           -> error
             end
           error -> error
+        end
+      end
+      
+      
+      def put!(records) when is_list records do
+        # res = :erlcloud_ddb.batch_write_item([{TestModelHashKey.table_name, [{:put, [{"uuid", "12345"} ]}]}])
+        
+        records = Enum.map records, fn(record) -> before_put(before_save record) end
+        validations = Enum.map records, fn(record) -> validate record end
+        validations = List.flatten(Enum.filter validations, fn(v) -> v != :ok end)
+
+        case validations do
+          [] -> items = Enum.map records, fn(record) -> {table_name, [{:put, to_dynamo(record)}]} end
+                case :erlcloud_ddb.batch_write_item(items) do
+                  {:ok, result}   -> {:ok, Enum.map records, fn (record) -> after_put(record) end}
+                  error           -> error
+                end
+            _  -> {:error, Enum.map validations, fn ({:error, err}) -> err end}
         end
       end
       
