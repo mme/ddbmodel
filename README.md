@@ -92,6 +92,11 @@ put! creates a new or updates an existing record
   {:ok, accounts} = Account.put! [Account.new, Account.new]
 ```
 
+insert! creates a new record or returns an error when a record with the same id already exists
+```elixir
+  {:ok, account} = Account.new.insert!
+```
+
 License
 -------------------------
 Copyright (c) 2013, Markus Ecker

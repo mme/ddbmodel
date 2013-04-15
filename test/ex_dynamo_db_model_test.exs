@@ -109,9 +109,18 @@ defmodule ExDynamoDBModelTest do
     x1 = TestModelHashKey.new
     x2 = TestModelHashKey.new
     
-    {status, result} = TestModelHashKey.put! [x1,x2]
+    {status, _} = TestModelHashKey.put! [x1,x2]
     
     assert status == :ok
+  end
+  
+  test "insert!" do
+    {status, x} = TestModelHashKey.new.insert!
+
+    assert status == :ok
+    {status, _} = x.insert!
+
+    assert status != :ok
   end
   
 end
