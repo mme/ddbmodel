@@ -133,4 +133,12 @@ defmodule ExDynamoDBModelTest do
     assert status == :ok
   end
   
+  test "delete!" do
+    {:ok, x} = TestModelHashKey.new.insert!
+    {status, _} = x.delete!
+    assert status == :ok
+    {status, _} = x.delete!
+    assert status != :ok
+  end
+  
 end

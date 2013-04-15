@@ -129,10 +129,52 @@ defmodule ExDynamoDBModel.CodeGen.DB do
       end
       
       # expect that the record already exists
-      defp expect_exists(record={__MODULE__, _dict}) do
-        case {key,id(record)} do
+      defp expect_exists(record={__MODULE__, _dict}), do: expect_exists(key,id(record))
+      
+      defp expect_exists(k,i) do
+        case {k,i} do
           {{hash, range}, {hash_key, range_key}}  -> [expected: [{atom_to_binary(hash), hash_key }, {atom_to_binary(range), range_key }]]
           {hash, hash_key} when is_atom(hash)     -> [expected: {atom_to_binary(hash), hash_key }]
+        end
+      end
+      
+      # --------------------------------------------
+      # Delete
+      # --------------------------------------------
+      
+      def before_delete(record_id), do: record_id
+      def after_delete(record_id), do: record_id
+      
+      defoverridable [before_delete: 1, after_delete: 1]
+      
+      @doc "delete record"
+      def delete!(record={__MODULE__,_dict}), do: delete!(id record)
+      
+      def delete!(records) when is_list records do
+        record_ids = Enum.map records, fn(record) ->
+          case record do
+            {__MODULE__,_dict}  -> id(record)
+            record_id           -> record_id
+          end
+        end
+        
+        Enum.each record_ids, fn(record_id) -> before_delete(record_id) end
+        
+        items = Enum.map record_ids, fn(record_id) -> {table_name, [{:delete, record_id} ]} end
+        case :erlcloud_ddb.batch_write_item(items) do
+          {:ok, result}   ->  Enum.each record_ids, fn(record_id) -> after_delete(record_id) end
+                              {:ok, record_ids}
+          error           ->  error
+        end
+        
+      end
+      
+      def delete!(record_id) do
+        before_delete(record_id)
+        case :erlcloud_ddb.delete_item(table_name, record_id, expect_exists(key,record_id)) do
+          {:ok, result}   ->  after_delete(record_id)
+                              {:ok, record_id}
+          error           ->  error
         end
       end
       

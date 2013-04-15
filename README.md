@@ -103,6 +103,15 @@ update! updates an existing record or returns an error when a record with the sa
   {:ok, account} = account.membership(:paid).update!
 ```
 
+delete! deletes an existing record or returns an error when the record does not exist
+```elixir
+  {:ok, id} = account.delete!
+  # delete a record with the ID {22,4}
+  {:ok, id} = Account.delete! {22,4}
+  # batch delete records
+  {:ok, ids} = Account.delete [acc1, acc2, acc3]
+```
+
 License
 -------------------------
 Copyright (c) 2013, Markus Ecker
