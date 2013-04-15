@@ -78,7 +78,7 @@ Using Models
   
 ```
 
-Updates
+Updating
 -------------------------
 
 
@@ -107,7 +107,7 @@ Updates
 ```
 
 
-Queries
+Querying
 -------------------------
 
 
