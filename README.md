@@ -56,30 +56,26 @@ end
 Using Models
 -------------------------
 
-Create a new instance with the new function
+
 ```elixir
+
+  # Create an instance with new
   account = Account.new
-```
 
-Pass in parameters by keyword
-```elixir
+  # Pass in parameters by keyword
   account = Account.new first_name: "Dale", last_name: "Cooper"
-```
-
-Update a single parameter (don't forget to assign to a variable, the update does not happen in place..)
-```elixir
+  
+  # Update a single parameter (don't forget to assign to a variable, the update does not happen in place..)
   account = account.membership(:paid)
-```
-
-Mass Assignment
-```elixir
+  
+  # Mass Assignment
   account = account.set membership: :paid, status: :A
-```
-
-Whitelisted mass assignment
-```elixir
+  
+  # Whitelisted mass assignment
   # change only membership and status
-  account = account.set [membership: :paid, status: :A, first_name: "John"], [:membership, :status]
+  fields = [:membership, :status]
+  account = account.set [membership: :paid, password: "owned", first_name: "John"], fields
+  
 ```
 
 Updating DynamoDB
