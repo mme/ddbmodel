@@ -85,32 +85,31 @@ Whitelisted mass assignment
 Updating DynamoDB
 -------------------------
 
-put! creates a new or updates an existing record
+
 ```elixir
+
+  # create or update with put!
   {:ok, account} = account.put!
   
-  # pass an array for batch put!
+  # pass an array for batch put
   {:ok, accounts} = Account.put! [Account.new, Account.new]
-```
-
-insert! creates a new record or returns an error when a record with the same id already exists
-```elixir
+  
+  # ensure that the record is new, i.e. nothing gets overwritten in the DB
   {:ok, account} = Account.new.insert!
-```
-
-update! updates an existing record or returns an error when a record with the same id does not exist
-```elixir
+  
+  # ensure the record exist
   {:ok, account} = account.membership(:paid).update!
-```
-
-delete! deletes an existing record or returns an error when the record does not exist
-```elixir
+  
+  # delete an existing record
   {:ok, id} = account.delete!
-  # delete a record with the ID {22,4}
+  
+  # delete works with IDs, too
   {:ok, id} = Account.delete! {22,4}
+  
   # batch delete records
   {:ok, ids} = Account.delete [acc1, acc2, acc3]
 ```
+
 
 License
 -------------------------
