@@ -1,4 +1,4 @@
-defmodule ExDynamoDBModel.CodeGen.Columns do
+defmodule DDBModel.Columns do
 
   
   def generate(:column, name, opts) do

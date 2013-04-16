@@ -1,5 +1,4 @@
-ExDynamoDBModel
-================================
+DDBModel==========================
 
 *ActiveRecord-like Model for DynamoDB*
 
@@ -15,13 +14,13 @@ Usage
 defmodule YourModel do
   
   # specify the DynamoDB key column (default is :hash). 
-  use ExDynamoDBModel, key: :id
+  use DDBModel :id
   
   # if you have a table with hash key and range, pass a tuple
-  use ExDynamoDBModel, key: {:id, :timestamp}
+  use DDBModel {:id, :timestamp}
   
   # optionally set a custom table name. default is the model name
-  use ExDynamoDBModel, table_name: "your_dynamo_table"
+  use DDBModel table_name: "your_dynamo_table"
   
 end
 ```
@@ -32,8 +31,7 @@ Defining Models
 ```elixir
 defmodule Account do
   
-  use ExDynamoDBModel
-  
+  use DDBModel 
   # uuid type automatically creates a uuid before saving if needed
   defcolumn :uuid, type: :uuid
   

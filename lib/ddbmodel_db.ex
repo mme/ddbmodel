@@ -1,4 +1,4 @@
-defmodule ExDynamoDBModel.CodeGen.DB do
+defmodule DDBModel.DB do
   def generate(:model) do
     
     quote do

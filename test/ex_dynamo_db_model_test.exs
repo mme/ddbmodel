@@ -1,6 +1,6 @@
 Code.require_file "../test_helper.exs", __FILE__
 
-defmodule ExDynamoDBModelTest do
+defmodule DDBModelTest do
   use ExUnit.Case
   
   setup do

@@ -1,4 +1,4 @@
-defmodule ExDynamoDBModel.CodeGen.Validation do
+defmodule DDBModel.Validation do
   
   def generate(:model) do
     quote do
