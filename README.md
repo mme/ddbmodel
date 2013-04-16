@@ -1,4 +1,5 @@
-DDBModel==========================
+DDBModel
+==========================
 
 *ActiveRecord-like Model for DynamoDB*
 
